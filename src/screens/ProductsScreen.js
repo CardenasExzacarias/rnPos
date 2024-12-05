@@ -3,7 +3,7 @@ import { Alert, Button, StyleSheet, Text, View } from 'react-native'
 import { database } from '../database/database'
 import { useSQLiteContext } from 'expo-sqlite'
 
-const ProductsView = () => {
+const ProductsScreen = () => {
     const db = useSQLiteContext();
     const [users, setUsers] = useState([]);
     const fetchUsers = async () => {
@@ -16,17 +16,17 @@ const ProductsView = () => {
         setUsers(result);
         console.log(users);
         return users;
-    }
+    };
 
     return (
         <View style={styles.container}>
             <Text>ProductsView</Text>
             <Button title='See users' onPress={async () => alert(await fetchUsers())} />
         </View>
-    )
-}
+    );
+};
 
-export default ProductsView
+export default ProductsScreen;
 
 const styles = StyleSheet.create({
     container: {

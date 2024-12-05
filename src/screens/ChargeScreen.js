@@ -3,9 +3,10 @@ import { Pressable, ScrollView, Text, View } from 'react-native';
 import ProductsChargeDetails from '../components/ProductChargeDetails';
 import GenericButton from '../components/GenericButton';
 import { globalStyles } from '../styles/global';
+import { useSale } from '../contexts/SaleContext';
 
-const ChargeView = ({ route }) => {
-    const { barcodes, setBarcodes } = route.params;
+const ChargeScreen = ({ navigation }) => {
+    const { barcodes, setBarcodes } = useSale();
 
     //Busqueda en base de datos
 
@@ -29,4 +30,4 @@ const ChargeView = ({ route }) => {
     );
 };
 
-export default ChargeView;
+export default ChargeScreen;

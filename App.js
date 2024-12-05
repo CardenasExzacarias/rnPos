@@ -1,10 +1,10 @@
 import { StyleSheet, View } from "react-native";
-import Router from "./src/routes/Router";
+import AppNavigator from "./src/navigation/AppNavigator";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Router />
+      <AppNavigator />
     </View>
   );
 }

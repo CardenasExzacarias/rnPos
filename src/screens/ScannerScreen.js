@@ -2,15 +2,16 @@ import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useState } from 'react';
 import { Button, Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useSale } from '../contexts/SaleContext';
 
-export default function ScannerView({ navigation }) {
+const ScannerScreen = ({ navigation }) => {
     const [facing, setFacing] = useState('back');
     const [permission, requestPermission] = useCameraPermissions();
     const [scanned, setScanned] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [type, setType] = useState('');
     const [barcode, setBarcode] = useState('');
-    const [barcodes, setBarcodes] = useState([]);
+    const { barcodes, setBarcodes } = useSale();
 
     if (!permission) {
         // Camera permissions are still loading.
@@ -82,10 +83,9 @@ export default function ScannerView({ navigation }) {
                     }}
                 >
                     <View style={styles.buttonContainer}>
-                        <Pressable style={styles.button} onPress={() => navigation.navigate(
-                            'Charge',
-                            { barcodes: barcodes, setBarcodes: setBarcodes }
-                        )}
+                        <Pressable
+                            style={styles.button}
+                            onPress={() => navigation.navigate('Charge')}
                         >
                             <Text style={styles.text}>Ir al Pago</Text>
                         </Pressable>
@@ -95,6 +95,8 @@ export default function ScannerView({ navigation }) {
         </SafeAreaProvider>
     );
 }
+
+export default ScannerScreen;
 
 const styles = StyleSheet.create({
     container: {
