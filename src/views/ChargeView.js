@@ -1,15 +1,30 @@
 import React from 'react'
-import { Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
+import ProductsChargeDetails from '../components/ProductChargeDetails';
+import GenericButton from '../components/GenericButton';
+import { globalStyles } from '../styles/global';
 
 const ChargeView = ({ route }) => {
     const { barcodes, setBarcodes } = route.params;
+
+    //Busqueda en base de datos
+
     return (
-        <View>
-            {
-                barcodes.map((barcode) => (
-                    <Text>{barcode}</Text>
-                ))
-            }
+        <View style={globalStyles.container}>
+            <ScrollView>
+                {
+                    barcodes.map((barcode, index) => (
+                        <ProductsChargeDetails
+                            key={index}
+                            product={barcode}
+                        />
+                    ))
+                }
+            </ScrollView>
+            <GenericButton
+                text={'Pagar'}
+                onPress={() => alert('hola')}
+            />
         </View>
     );
 };

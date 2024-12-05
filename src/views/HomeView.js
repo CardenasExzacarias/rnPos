@@ -1,15 +1,15 @@
 import React from 'react'
 import { View, Button, StyleSheet, Pressable, Text } from 'react-native';
+import GenericButton from '../components/GenericButton';
+import { globalStyles } from '../styles/global';
 
 const HomeView = ({ navigation }) => {
     return (
-        <View style={styles.container}>
-            <Pressable
+        <View style={globalStyles.container}>
+            <GenericButton
                 onPress={() => navigation.navigate('Scanner')}
-                style={({ pressed }) => [{ backgroundColor: pressed ? 'lightgray' : 'white', }, styles.button,]}
-            >
-                <Text style={styles.text}>Escanear</Text>
-            </Pressable>
+                text={"Escanear"}
+            />
         </View>
     );
 };
@@ -17,18 +17,4 @@ const HomeView = ({ navigation }) => {
 export default HomeView;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    button: {
-        padding: 10,
-        borderRadius: 5,
-        borderWidth: 1,
-        borderColor: 'black',
-    },
-    text: {
-        fontSize: 16,
-    },
 });
