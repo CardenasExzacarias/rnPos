@@ -9,8 +9,17 @@ const SaleStack = createNativeStackNavigator();
 const SaleNavigator = () => (
     <SaleProvider>
         <SaleStack.Navigator initialRouteName="Scanner">
-            <SaleStack.Screen name='Scanner' component={ScannerScreen} />
-            <SaleStack.Screen name='Charge' component={ChargeScreen} />
+            <SaleStack.Screen
+                name='Scanner'
+                component={ScannerScreen}
+                options={{ title: 'Escanear Productos' }}
+
+            />
+            <SaleStack.Screen
+                name='Charge'
+                component={ChargeScreen}
+                options={{ title: 'Pago' }}
+            />
         </SaleStack.Navigator>
     </SaleProvider>
 );

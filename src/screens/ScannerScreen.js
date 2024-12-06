@@ -40,11 +40,28 @@ const ScannerScreen = ({ navigation }) => {
     };
 
     const handleContinue = () => {
+        const updateBarcodes = barcodes;
+        let barcodeIndex = -1;
+
+        if(updateBarcodes.length !== 0){
+            barcodeIndex = updateBarcodes.findIndex(obj => obj.barcode === barcode)
+        }
+
+        console.log(barcodeIndex);
+        
+        if(barcodeIndex !== -1){
+            updateBarcodes[barcodeIndex].count++;
+        }else{
+            updateBarcodes.push({
+                barcode,
+                count: 1
+            });
+        }
+
+        setBarcodes(updateBarcodes);
         setScanned(false);
         setModalVisible(false);
-        const updateBarcodes = barcodes;
-        updateBarcodes.push(barcode);
-        setBarcodes(updateBarcodes);
+
         console.log(barcodes);
     }
 

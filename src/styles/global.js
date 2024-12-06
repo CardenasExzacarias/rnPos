@@ -17,5 +17,11 @@ export const globalStyles = StyleSheet.create({
         borderRadius: 5,
         borderWidth: 1,
         borderColor: 'black',
-    }
+        backgroundColor: '#fff',
+    },
+    itemRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
 })

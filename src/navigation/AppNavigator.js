@@ -12,9 +12,20 @@ const AppStack = createNativeStackNavigator();
 const AppNavigator = () => (
     <NavigationContainer>
         <AppStack.Navigator initialRouteName="Home">
-            <AppStack.Screen name="Home" component={HomeScreen} />
-            <AppStack.Screen name="Products" component={ProductsScreen} />
-            <AppStack.Screen name="SaleStack" component={SaleNavigator} />
+            <AppStack.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{ headerShown: false }}
+            />
+            <AppStack.Screen
+                name="Products"
+                component={ProductsScreen}
+            />
+            <AppStack.Screen
+                name="SaleStack"
+                component={SaleNavigator}
+                options={{ headerShown: false }}
+            />
         </AppStack.Navigator>
     </NavigationContainer>
 );
