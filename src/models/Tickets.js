@@ -1,5 +1,5 @@
 class Tickets {
-    static get TABLE_NAME() { return 'Tickets' };
+    static get TABLE_NAME() { return 'tickets' };
     
     id;
     folio;

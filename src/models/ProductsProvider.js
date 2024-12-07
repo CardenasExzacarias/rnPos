@@ -1,5 +1,5 @@
 class ProductsProviders {
-    static get TABLE_NAME() { return 'ProductsProviders' };
+    static get TABLE_NAME() { return 'products_providers' };
     
     id;
     product_id;

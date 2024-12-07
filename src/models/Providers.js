@@ -1,5 +1,5 @@
 class Providers {
-    static get TABLE_NAME() { return 'Providers' };
+    static get TABLE_NAME() { return 'providers' };
     
     id;
     name;

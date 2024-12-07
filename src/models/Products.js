@@ -1,5 +1,5 @@
 class Products {
-    static get TABLE_NAME() { return 'Products' };
+    static get TABLE_NAME() { return 'products' };
 
     id;
     name;

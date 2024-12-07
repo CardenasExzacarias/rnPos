@@ -1,15 +1,15 @@
 class Promotions {
-    static get TABLE_NAME() { return 'Promotions' };
+    static get TABLE_NAME() { return 'promotions' };
     
     id;
-    status;
+    is_active;
     description;
     created_at;
     updated_at;
 
-    constructor(id, status, description, created_at, updated_at) {
+    constructor(id, is_active, description, created_at, updated_at) {
         this.id = id;
-        this.status = status;
+        this.is_active = is_active;
         this.description = description;
         this.created_at = created_at;
         this.updated_at = updated_at;

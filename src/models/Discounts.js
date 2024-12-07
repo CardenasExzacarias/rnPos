@@ -1,5 +1,5 @@
 class Discounts {
-    static get TABLE_NAME() { return 'Discounts' };
+    static get TABLE_NAME() { return 'discounts' };
 
     id;
     mount;
