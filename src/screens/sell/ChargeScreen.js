@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import ProductsChargeDetails from '../components/ProductChargeDetails';
-import GenericButton from '../components/GenericButton';
-import { globalStyles } from '../styles/global';
-import { useSale } from '../contexts/SaleContext';
+import ProductsChargeDetails from '../../components/ProductChargeDetails';
+import GenericButton from '../../components/GenericButton';
+import { globalStyles } from '../../styles/global';
+import { SellContext } from '../../contexts/SellContext';
 
 const ChargeScreen = ({ navigation }) => {
-    const { barcodes, setBarcodes } = useSale();
+    const { barcodes, setBarcodes } = useContext(SellContext);
     return (
         <View style={globalStyles.container}>
             <ScrollView>

@@ -1,15 +1,15 @@
 import { useContext, useState } from 'react';
-import { Button, Modal, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { useSale } from '../contexts/SaleContext';
-import ScanScreen from './ScanScreen';
-import { ScanContext } from '../contexts/ScanContext';
+import { SellContext } from '../../contexts/SellContext';
+import ScanScreen from '../ScanScreen';
+import { ScanContext } from '../../contexts/ScanContext';
 
-const ScanSaleScreen = ({ navigation }) => {
+const ScanSellScreen = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [type, setType] = useState('');
     const [barcode, setBarcode] = useState('');
-    const { barcodes, setBarcodes } = useSale();
+    const { barcodes, setBarcodes } = useContext(SellContext);
 
     const { hasScanned, setHasScanned } = useContext(ScanContext);
 
@@ -28,8 +28,6 @@ const ScanSaleScreen = ({ navigation }) => {
             barcodeIndex = updateBarcodes.findIndex(obj => obj.barcode === barcode)
         }
 
-        console.log(barcodeIndex);
-
         if (barcodeIndex !== -1) {
             updateBarcodes[barcodeIndex].count++;
         } else {
@@ -42,52 +40,50 @@ const ScanSaleScreen = ({ navigation }) => {
         setBarcodes(updateBarcodes);
         setHasScanned(false);
         setModalVisible(false);
-
-        console.log(barcodes);
     }
 
     return (
         <SafeAreaProvider>
-                <View style={styles.container}>
-                    <Modal
-                        animationType="slide"
-                        transparent={true}
-                        visible={modalVisible}
-                        onRequestClose={() => setModalVisible(false)}
-                    >
-                        <View style={styles.centeredView}>
-                            <View style={styles.modalView}>
-                                <Text>{`Código de barras: ${barcode} \nTipo: ${type}`}</Text>
-                                <Pressable
-                                    onPress={() => { handleContinue() }}
-                                    style={
-                                        ({ pressed }) => [
-                                            { backgroundColor: pressed ? 'lightgray' : 'white', },
-                                            styles.button,
-                                        ]
-                                    }
-                                >
-                                    <Text>Continuar</Text>
-                                </Pressable>
-                            </View>
-                        </View>
-                    </Modal>
-                    <ScanScreen handleScan={handleBarcodeScanned}>
-                        <View style={styles.buttonContainer}>
+            <View style={styles.container}>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => setModalVisible(false)}
+                >
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <Text>{`Código de barras: ${barcode} \nTipo: ${type}`}</Text>
                             <Pressable
-                                style={styles.button}
-                                onPress={() => navigation.navigate('Charge')}
+                                onPress={() => { handleContinue() }}
+                                style={
+                                    ({ pressed }) => [
+                                        { backgroundColor: pressed ? 'lightgray' : 'white', },
+                                        styles.button,
+                                    ]
+                                }
                             >
-                                <Text style={styles.text}>Ir al Pago</Text>
+                                <Text>Continuar</Text>
                             </Pressable>
                         </View>
-                    </ScanScreen>
-                </View>
+                    </View>
+                </Modal>
+                <ScanScreen handleScan={handleBarcodeScanned}>
+                    <View style={styles.buttonContainer}>
+                        <Pressable
+                            style={styles.button}
+                            onPress={() => navigation.navigate('Charge')}
+                        >
+                            <Text style={styles.text}>Ir al Pago</Text>
+                        </Pressable>
+                    </View>
+                </ScanScreen>
+            </View>
         </SafeAreaProvider>
     );
 }
 
-export default ScanSaleScreen;
+export default ScanSellScreen;
 
 const styles = StyleSheet.create({
     container: {
@@ -110,13 +106,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
-    },
-    message: {
-        textAlign: 'center',
-        paddingBottom: 10,
-    },
-    camera: {
-        flex: 1,
     },
     buttonContainer: {
         flex: 1,

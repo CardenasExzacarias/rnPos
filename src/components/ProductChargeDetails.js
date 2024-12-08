@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { globalStyles } from "../styles/global";
 import { Icon } from "react-native-elements";
 import ItemCount from "./ItemCount";
-import { useSale } from "../contexts/SaleContext";
+import { SellContext } from "../contexts/SellContext";
 
 const ProductsChargeDetails = ({ componentKey, product, count }) => {
   const price = 15;
-  
+
   const [productCount, setProductCount] = useState(count);
-  const { barcodes, setBarcodes } = useSale();
+  const { barcodes, setBarcodes } = useContext(SellContext);
 
   const updateBarcodes = barcodes;
   updateBarcodes[componentKey].count = productCount;

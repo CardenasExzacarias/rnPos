@@ -4,9 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SQLiteProvider } from 'expo-sqlite';
 import { initDatabase } from '../database/database';
 import HomeScreen from '../screens/HomeScreen';
-import ProductsScreen from '../screens/ProductsScreen'
-import SaleNavigator from './SaleNavigator';
-import ScannerScreen from '../screens/ScanScreen';
+import SellNavigator from './SellNavigator';
+import InventoryNavigator from './InventoyNavigator';
 
 const AppStack = createNativeStackNavigator();
 
@@ -20,18 +19,13 @@ const AppNavigator = () => (
                     options={{ headerShown: false }}
                 />
                 <AppStack.Screen
-                    name="Products"
-                    component={ProductsScreen}
-                    options={{ title: 'Productos' }}
+                    name="InventoryStack"
+                    component={InventoryNavigator}
+                    options={{ headerShown: false }}
                 />
                 <AppStack.Screen
-                    name="Scanner"
-                    component={ScannerScreen}
-                    options={{ title: 'Escaner' }}
-                />
-                <AppStack.Screen
-                    name="SaleStack"
-                    component={SaleNavigator}
+                    name="SellStack"
+                    component={SellNavigator}
                     options={{ headerShown: false }}
                 />
             </AppStack.Navigator>
