@@ -15,7 +15,6 @@ const HomeScreen = ({ navigation }) => {
                 text={"Inventario"}
             />
         </View>
-
     );
 };
 
