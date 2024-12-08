@@ -1,19 +1,19 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SaleProvider } from '../contexts/SaleContext';
-import ScannerScreen from '../screens/ScannerScreen';
 import ChargeScreen from '../screens/ChargeScreen';
+import ScanSaleScreen from '../screens/ScanSaleScreen';
+import ScanNavigator from './ScanNavigator';
 
 const SaleStack = createNativeStackNavigator();
 
 const SaleNavigator = () => (
     <SaleProvider>
-        <SaleStack.Navigator initialRouteName="Scanner">
+        <SaleStack.Navigator initialRouteName="ScannerSale">
             <SaleStack.Screen
-                name='Scanner'
-                component={ScannerScreen}
-                options={{ title: 'Escanear Productos' }}
-
+                name='ScannerSale'
+                component={ScanNavigator}
+                options={{ headerShown: false }}
             />
             <SaleStack.Screen
                 name='Charge'

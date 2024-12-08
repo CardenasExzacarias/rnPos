@@ -18,6 +18,7 @@ export const initDatabase = async (db) => {
             CREATE TABLE IF NOT EXISTS products(
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 name TEXT,
+                barcode TEXT,
                 unit_cost INTEGER,
                 unit_price INTEGER,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
