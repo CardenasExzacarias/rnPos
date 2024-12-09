@@ -11,16 +11,16 @@ const InventoryNavigator = () => (
         <InventoryStack.Navigator initialRouteName="Inventory">
             <InventoryStack.Screen
                 name='Inventory'
-                component={({ navigation }) => (
-                    <ScanWrapper>
-                        <InventoryScreen navigation={navigation} />
-                    </ScanWrapper>
-                )}
+                component={InventoryScreen}
                 options={{ title: 'Inventario' }}
             />
             <InventoryStack.Screen
                 name='RegisterProduct'
-                component={RegisterProductScreen}
+                component={({ navigation }) => (
+                    <ScanWrapper>
+                        <RegisterProductScreen navigation={navigation} />
+                    </ScanWrapper>
+                )}
                 options={{ title: 'Registrar Producto' }}
             />
         </InventoryStack.Navigator>
