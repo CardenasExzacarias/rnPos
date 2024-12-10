@@ -3,6 +3,7 @@ import { Alert, Button, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSQLiteContext } from 'expo-sqlite';
 import ScannerScreen from '../ScanScreen';
 import BottomRightButton from '../../components/BottomRightButton';
+import GenericButton from '../../components/GenericButton';
 
 const ProductsScreen = ({ navigation }) => {
     const db = useSQLiteContext();
@@ -10,17 +11,18 @@ const ProductsScreen = ({ navigation }) => {
     const fetchProducts = async () => {
         let result;
         try {
-            result = await db.getAllAsync("SELECT name, barcode FROM ;");
+            result = await db.getAllAsync("SELECT name, unit_cost FROM products;");
         } catch (error) {
             console.error(error);
         }
-        setUsers(result);
-        console.log(users);
-        return users;
+        setProducts(result);
+        console.log(products);
+        return products;
     };
 
     return (
         <View style={styles.container}>
+            <GenericButton text={'consolear productos'} onPress={async () => await fetchProducts()} />
             <BottomRightButton onPress={() => navigation.navigate('RegisterProduct')} />
         </View>
     );
