@@ -8,10 +8,12 @@ import GenericButton from '../../components/GenericButton';
 import { Icon } from 'react-native-elements';
 import { Products } from '../../models/Products';
 import { useSQLiteContext } from 'expo-sqlite';
+import ProductRegisterDto from '../../dtos/products/ProductRegisterDto';
+import ProductRegisterService from '../../services/ProductRegisterService';
 
 const RegisterProductScreen = ({ navigation }) => {
     const db = useSQLiteContext();
-    
+
     const [name, setName] = useState('');
     const [unitCost, setUnitCost] = useState('');
     const [unitPrice, setUnitPrice] = useState('');
@@ -19,12 +21,19 @@ const RegisterProductScreen = ({ navigation }) => {
     const [barcode, setBarcode] = useState('');
 
     const handleRegister = () => {
-        const { query, authorizedValues } = Products.insert({
-            name: 'chocolate',
-            unit_cost: 16
-        });
+        const product = new ProductRegisterDto(
+            name,
+            barcode,
+            unitCost,
+            unitPrice,
+            provider
+        );
 
-        db.runAsync(query, authorizedValues);
+        console.log(provider);
+
+        const productRegister = ProductRegisterService.create(product);
+
+        //db.runAsync(query, authorizedValues);
     }
 
     return (
@@ -37,11 +46,13 @@ const RegisterProductScreen = ({ navigation }) => {
                 />
                 <View>
                     <View style={styles.scanContainer}>
-                        <CustomInput
-                            placeholder='Código'
-                            value={barcode}
-                            onChange={setBarcode}
-                        />
+                        <View style={styles.inputContainer}>
+                            <CustomInput
+                                placeholder='Código'
+                                value={barcode}
+                                onChange={setBarcode}
+                            />
+                        </View>
                         <View style={styles.scanButtonContainer}>
                             <Pressable onPress={() => alert('Escaneado!')}>
                                 <Icon name='camera' type="font-awesome" />
@@ -82,7 +93,9 @@ export default RegisterProductScreen;
 
 const styles = StyleSheet.create({
     form: {
-        height: '95%'
+        height: '95%',
+        width: '90%',
+        marginTop: 15
     },
     container: {
         justifyContent: 'center',
@@ -93,11 +106,13 @@ const styles = StyleSheet.create({
     },
     scanContainer: {
         flexDirection: 'row',
-        maxWidth: '50%'
     },
     scanButtonContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginHorizontal: 10
+        marginHorizontal: 10,
+    },
+    inputContainer: {
+        width: '92%'
     }
 });

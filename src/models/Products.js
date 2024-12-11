@@ -2,13 +2,19 @@ import { Model } from "./Model";
 
 export class Products extends Model {
     static table = 'products';
-    static fields = [
-        'id',
+    static fillable = [
         'name',
         'barcode',
         'unit_cost',
         'unit_price',
-        'created_at',
         'updated_at'
     ];
+
+    id;
+    name;
+    barcode;
+    unit_cost;
+    unit_price;
+    updated_at;
+    created_at;
 }

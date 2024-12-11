@@ -1,18 +1,18 @@
 import { QueryBuilder } from "../database/QueryBuilder";
 
 export class Model extends QueryBuilder {
-    static insert(fields) {
-        let authorizedValues = [];
+    static create(fields) {
+        let values = [];
         let authorizedFields = [];
         for (const field in fields) {
-            if (this.fields.includes(field)) {
-                authorizedValues.push(fields[field]);
+            if (this.fillable.includes(field)) {
+                values.push(fields[field]);
                 authorizedFields.push(field);
             }
         }
 
-        const query = super.insert(authorizedFields);
+        const query = super.create(authorizedFields);
 
-        return { query, authorizedValues };
+        return { query, values };
     }
 }

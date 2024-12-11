@@ -1,19 +1,12 @@
-class Providers {
-    static get TABLE_NAME() { return 'providers' };
-    
-    id;
-    name;
-    phone;
-    email;
-    created_at;
-    updated_at;
+import { Model } from "./Model";
 
-    constructor(id, name, phone, email, created_at, updated_at) {
-        this.id = id;
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-    }
+class Providers extends Model {
+    static table = 'providers';
+
+    static fillable = [
+        'name',
+        'phone',
+        'email',
+        'updated_at',
+    ];
 }

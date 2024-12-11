@@ -1,8 +1,8 @@
 export class QueryBuilder {
     static table;
-    static fields;
+    static fillable;
 
-    static insert(fields) {
+    static create(fields) {
         const last = fields.length - 1;
         let columns = '';
         let columnsValues = '';
