@@ -1,4 +1,4 @@
-export class QueryBuilder {
+export default class QueryBuilder {
     static table;
     static fillable;
 

@@ -1,4 +1,4 @@
-import { Products } from "../models/Products";
+import Products from "../../models/Products";
 
 export default class ProductRegisterService{
     static create(ProductRegisterDto){

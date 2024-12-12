@@ -1,6 +1,6 @@
-import { QueryBuilder } from "../database/QueryBuilder";
+import QueryBuilder from "../database/QueryBuilder";
 
-export class Model extends QueryBuilder {
+export default class Model extends QueryBuilder {
     static create(fields) {
         let values = [];
         let authorizedFields = [];

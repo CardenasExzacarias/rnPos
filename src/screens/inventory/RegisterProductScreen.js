@@ -1,15 +1,13 @@
-import { Button, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { globalStyles } from '../../styles/global';
-import { useContext, useState } from 'react';
-import { ScanContext } from '../../contexts/ScanContext';
+import { useState } from 'react';
 import CustomInput from '../../components/inputs/CustomInput';
 import CustomDropdown from '../../components/inputs/CustomDropdown';
 import GenericButton from '../../components/GenericButton';
 import { Icon } from 'react-native-elements';
-import { Products } from '../../models/Products';
 import { useSQLiteContext } from 'expo-sqlite';
 import ProductRegisterDto from '../../dtos/products/ProductRegisterDto';
-import ProductRegisterService from '../../services/ProductRegisterService';
+import ProductRegisterService from '../../services/register/ProductRegisterService';
 
 const RegisterProductScreen = ({ navigation }) => {
     const db = useSQLiteContext();

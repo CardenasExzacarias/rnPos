@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { globalStyles } from '../../styles/global';
 import { Picker } from '@react-native-picker/picker';
 
 const CustomDropdown = ({ selectedValue, onValueChange, elementList, placeholder }) => {
+    useEffect(() => {
+        onValueChange(elementList[0]);
+    }, []);
+
     return (
         <View style={styles.container}>
             <Text style={styles.label}>{placeholder}</Text>

@@ -1,6 +1,6 @@
-import { Model } from "./Model";
+import Model from "./Model";
 
-class Providers extends Model {
+export default class Providers extends Model {
     static table = 'providers';
 
     static fillable = [

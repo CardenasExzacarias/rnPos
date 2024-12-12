@@ -14,6 +14,10 @@ const HomeScreen = ({ navigation }) => {
                 onPress={() => navigation.navigate('InventoryStack')}
                 text={"Inventario"}
             />
+            <GenericButton
+                onPress={() => navigation.navigate('ProvidersStack')}
+                text={"Proveedores"}
+            />
         </View>
     );
 };
