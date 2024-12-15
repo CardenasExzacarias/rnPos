@@ -1,6 +1,6 @@
 import Products from "../../models/Products";
 
-export default class ProductRegisterService{
+export class ProductRegisterRepository{
     static create(ProductRegisterDto){
         const {providerId, ...product} = ProductRegisterDto;
         const { query, values } = Products.create(product);

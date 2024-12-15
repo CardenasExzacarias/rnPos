@@ -6,7 +6,7 @@ import GenericButton from '../../components/GenericButton';
 import { Icon } from 'react-native-elements';
 import { useSQLiteContext } from 'expo-sqlite';
 import ProviderRegisterDto from '../../dtos/providers/ProviderRegisterDto';
-import ProviderRegisterService from '../../services/register/ProviderRegisterService';
+import { ProviderRegisterRepository } from '../../repository/register/ProviderRegisterRepository';
 
 const RegisterProviderScreen = ({ navigation }) => {
     const db = useSQLiteContext();
@@ -22,9 +22,9 @@ const RegisterProviderScreen = ({ navigation }) => {
             email
         );
 
-        const ProviderRegister = ProviderRegisterService.create(provider);
+        const { query, values } = ProviderRegisterRepository.create(provider);
 
-        //db.runAsync(query, authorizedValues);
+        db.runAsync(query, values);
     }
 
     return (
@@ -36,12 +36,12 @@ const RegisterProviderScreen = ({ navigation }) => {
                     onChange={setName}
                 />
                 <CustomInput
-                    placeholder='Número de Teléfono'
+                    placeholder='Número de teléfono'
                     value={phone}
                     onChange={setPhone}
                 />
                 <CustomInput
-                    placeholder='Costo de compra'
+                    placeholder='Correo electrónico'
                     value={email}
                     onChange={setEmail}
                 />
