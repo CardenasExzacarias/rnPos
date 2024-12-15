@@ -6,7 +6,7 @@ import GenericButton from '../../components/GenericButton';
 import { Icon } from 'react-native-elements';
 import { useSQLiteContext } from 'expo-sqlite';
 import ProviderRegisterDto from '../../dtos/providers/ProviderRegisterDto';
-import { ProviderRegisterRepository } from '../../repository/register/ProviderRegisterRepository';
+import { ProviderRepository } from '../../repository/ProviderRepository';
 
 const RegisterProviderScreen = ({ navigation }) => {
     const db = useSQLiteContext();
@@ -22,7 +22,7 @@ const RegisterProviderScreen = ({ navigation }) => {
             email
         );
 
-        const { query, values } = ProviderRegisterRepository.create(provider);
+        const { query, values } = ProviderRepository.create(provider);
 
         db.runAsync(query, values);
     }

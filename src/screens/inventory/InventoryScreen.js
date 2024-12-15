@@ -1,28 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, Button, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSQLiteContext } from 'expo-sqlite';
 import ScannerScreen from '../ScanScreen';
 import BottomRightButton from '../../components/BottomRightButton';
 import GenericButton from '../../components/GenericButton';
+import { ProductRepository } from '../../repository/ProductRepository';
 
 const ProductsScreen = ({ navigation }) => {
     const db = useSQLiteContext();
     const [products, setProducts] = useState([]);
-    const fetchProducts = async () => {
-        let result;
-        try {
-            result = await db.getAllAsync("SELECT name, unit_cost FROM products;");
-        } catch (error) {
-            console.error(error);
-        }
-        setProducts(result);
-        console.log(products);
-        return products;
-    };
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            let result;
+            try {
+                result = await db.getAllAsync(ProductRepository.getAll());
+            } catch (error) {
+                console.error(error);
+            }
+            setProducts(result);
+        };
+
+        fetchProducts();
+    }, []);
 
     return (
         <View style={styles.container}>
-            <GenericButton text={'consolear productos'} onPress={async () => await fetchProducts()} />
+            {
+                products.map((product, index) => (
+                    <Text key={index}>{product.name}</Text>
+                ))
+            }
             <BottomRightButton onPress={() => navigation.navigate('RegisterProduct')} />
         </View>
     );

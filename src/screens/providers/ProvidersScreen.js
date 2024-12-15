@@ -3,29 +3,19 @@ import { Alert, Button, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSQLiteContext } from 'expo-sqlite';
 import BottomRightButton from '../../components/BottomRightButton';
 import GenericButton from '../../components/GenericButton';
+import { ProviderRepository } from '../../repository/ProviderRepository';
+import { useFetchProviders } from '../../hooks/useFetchProviders';
 
 const ProvidersScreen = ({ navigation }) => {
-    const db = useSQLiteContext();
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        const fetchProviders = async () => {
-            let result;
-            try {
-                result = await db.getAllAsync("SELECT id, name, phone, email FROM providers;");
-            } catch (error) {
-                console.error(error);
-            }
-            setProducts(result);
-            console.log(products);
-        };
-
-        fetchProviders();
-    }, []);
-
+    const { providers, setProviers } = useFetchProviders();
+    
     return (
         <View style={styles.container}>
-            <GenericButton text={'consolear proveedores'} onPress={() => alert('Proveedores')} />
+            {
+                providers.map((provider, index) => (
+                    <Text key={index}>{provider.name}</Text>
+                ))
+            }
             <BottomRightButton onPress={() => navigation.navigate('RegisterProvider')} />
         </View>
     );

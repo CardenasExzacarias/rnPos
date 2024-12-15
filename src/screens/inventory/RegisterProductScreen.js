@@ -7,7 +7,7 @@ import GenericButton from '../../components/GenericButton';
 import { Icon } from 'react-native-elements';
 import { useSQLiteContext } from 'expo-sqlite';
 import ProductRegisterDto from '../../dtos/products/ProductRegisterDto';
-import { ProductRegisterRepository } from '../../repository/register/ProductRegisterRepository';
+import { ProductRepository } from '../../repository/ProductRepository';
 
 const RegisterProductScreen = ({ navigation }) => {
     const db = useSQLiteContext();
@@ -27,9 +27,9 @@ const RegisterProductScreen = ({ navigation }) => {
             provider
         );
 
-        console.log(provider);
+        const productRegister = ProductRepository.create(product);
 
-        const productRegister = ProductRegisterRepository.create(product);
+        console.log(productRegister);
 
         //db.runAsync(query, authorizedValues);
     }

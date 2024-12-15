@@ -19,4 +19,15 @@ export default class QueryBuilder {
 
         return `INSERT INTO ${this.table} (${columns}) VALUES (${columnsValues})`;
     }
+
+    static get(fields = ['*']) {
+        const lastElement = fields.length - 1;
+        let fieldsString = '';
+
+        fields.forEach((field, index) => (
+            fieldsString += lastElement !== index ? `${field}, ` : field
+        ));
+
+        return `select ${fieldsString} from ${this.table}`;
+    }
 }
