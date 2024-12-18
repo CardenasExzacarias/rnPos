@@ -1,28 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Button, Pressable, StyleSheet, Text, View } from 'react-native';
-import { useSQLiteContext } from 'expo-sqlite';
-import ScannerScreen from '../ScanScreen';
 import BottomRightButton from '../../components/BottomRightButton';
-import GenericButton from '../../components/GenericButton';
 import { ProductRepository } from '../../repository/ProductRepository';
+import { useFetchAll } from '../../hooks/useFetchAll';
 
 const ProductsScreen = ({ navigation }) => {
-    const db = useSQLiteContext();
     const [products, setProducts] = useState([]);
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            let result;
-            try {
-                result = await db.getAllAsync(ProductRepository.getAll());
-            } catch (error) {
-                console.error(error);
-            }
-            setProducts(result);
-        };
-
-        fetchProducts();
-    }, []);
+    useFetchAll(setProducts, ProductRepository);
 
     return (
         <View style={styles.container}>

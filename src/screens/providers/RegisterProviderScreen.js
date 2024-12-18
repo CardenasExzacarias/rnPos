@@ -4,27 +4,29 @@ import { useState } from 'react';
 import CustomInput from '../../components/inputs/CustomInput';
 import GenericButton from '../../components/GenericButton';
 import { Icon } from 'react-native-elements';
-import { useSQLiteContext } from 'expo-sqlite';
 import ProviderRegisterDto from '../../dtos/providers/ProviderRegisterDto';
 import { ProviderRepository } from '../../repository/ProviderRepository';
+import { useRegister } from '../../hooks/useRegister';
 
 const RegisterProviderScreen = ({ navigation }) => {
-    const db = useSQLiteContext();
-
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
-
-    const handleRegister = () => {
-        const provider = new ProviderRegisterDto(
+    const register = useRegister(
+        ProviderRepository,
+        new ProviderRegisterDto(
             name,
             phone,
             email
-        );
+        )
+    );
 
-        const { query, values } = ProviderRepository.create(provider);
-
-        db.runAsync(query, values);
+    const handleRegister = async () => {
+        try {
+            await register();
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     return (

@@ -8,6 +8,7 @@ import { Icon } from 'react-native-elements';
 import { useSQLiteContext } from 'expo-sqlite';
 import ProductRegisterDto from '../../dtos/products/ProductRegisterDto';
 import { ProductRepository } from '../../repository/ProductRepository';
+import { useRegister } from '../../hooks/useRegister';
 
 const RegisterProductScreen = ({ navigation }) => {
     const db = useSQLiteContext();
@@ -18,20 +19,23 @@ const RegisterProductScreen = ({ navigation }) => {
     const [provider, setProvider] = useState('');
     const [barcode, setBarcode] = useState('');
 
-    const handleRegister = () => {
-        const product = new ProductRegisterDto(
+    const register = useRegister(
+        ProductRepository,
+        new ProductRegisterDto(
             name,
             barcode,
             unitCost,
             unitPrice,
             provider
-        );
+        )
+    );
 
-        const productRegister = ProductRepository.create(product);
-
-        console.log(productRegister);
-
-        //db.runAsync(query, authorizedValues);
+    const handleRegister = async () => {
+        try {
+            await register();
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     return (

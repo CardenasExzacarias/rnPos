@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Button, Pressable, StyleSheet, Text, View } from 'react-native';
-import { useSQLiteContext } from 'expo-sqlite';
 import BottomRightButton from '../../components/BottomRightButton';
-import GenericButton from '../../components/GenericButton';
 import { ProviderRepository } from '../../repository/ProviderRepository';
-import { useFetchProviders } from '../../hooks/useFetchProviders';
+import { useFetchAll } from '../../hooks/useFetchAll';
 
 const ProvidersScreen = ({ navigation }) => {
-    const { providers, setProviers } = useFetchProviders();
-    
+    const [providers, setProviers] = useState([]);
+    useFetchAll(setProviers, ProviderRepository);
+
     return (
         <View style={styles.container}>
             {
