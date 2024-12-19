@@ -1,14 +1,13 @@
 import { useSQLiteContext } from "expo-sqlite";
 
-export const useRegister = (repository, dto) => {
+export const useRegister = () => {
     const db = useSQLiteContext();
 
-    const { query, values } = repository.create(dto);
-
-    const register = async () => {
+    const register = async (repository, dto) => {
+        const { query, values } = repository.create(dto);
         return new Promise((res, rej) => {
             db.runAsync(query, values)
-                .then(() => res("data inserted"))
+                .then((record) => res(record.lastInsertRowId))
                 .catch((error) => rej(error));
         });
     };

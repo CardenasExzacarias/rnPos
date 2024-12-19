@@ -5,8 +5,11 @@ import { Picker } from '@react-native-picker/picker';
 
 const CustomDropdown = ({ selectedValue, onValueChange, elementList, placeholder }) => {
     useEffect(() => {
-        onValueChange(elementList[0]);
-    }, []);
+        if (elementList && elementList.length > 0) {
+            onValueChange(elementList[0].id);
+        }
+    }, [elementList]);
+
 
     return (
         <View style={styles.container}>
@@ -16,8 +19,8 @@ const CustomDropdown = ({ selectedValue, onValueChange, elementList, placeholder
                 onValueChange={itemValue => onValueChange(itemValue)}
             >
                 {
-                    elementList.map((value, index) => (
-                        <Picker.Item key={index} label={value} value={value} />
+                    elementList.map((provider, index) => (
+                        <Picker.Item key={index} label={provider.name} value={provider.id} />
                     ))
                 }
             </Picker>

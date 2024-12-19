@@ -5,34 +5,45 @@ import CustomInput from '../../components/inputs/CustomInput';
 import CustomDropdown from '../../components/inputs/CustomDropdown';
 import GenericButton from '../../components/GenericButton';
 import { Icon } from 'react-native-elements';
-import { useSQLiteContext } from 'expo-sqlite';
-import ProductRegisterDto from '../../dtos/products/ProductRegisterDto';
+import { ProductRegisterDto } from '../../dtos/products/ProductRegisterDto';
 import { ProductRepository } from '../../repository/ProductRepository';
 import { useRegister } from '../../hooks/useRegister';
+import { ProviderRepository } from '../../repository/ProviderRepository';
+import { useFetchAll } from '../../hooks/useFetchAll';
+import { ProductsProvidersRegisterDto } from '../../dtos/productsProviders/ProductsProvidersRegisterDto';
+import { ProductsProvidersRepository } from '../../repository/ProductsProvidersRepository';
 
 const RegisterProductScreen = ({ navigation }) => {
-    const db = useSQLiteContext();
-
     const [name, setName] = useState('');
     const [unitCost, setUnitCost] = useState('');
     const [unitPrice, setUnitPrice] = useState('');
-    const [provider, setProvider] = useState('');
     const [barcode, setBarcode] = useState('');
 
-    const register = useRegister(
-        ProductRepository,
-        new ProductRegisterDto(
-            name,
-            barcode,
-            unitCost,
-            unitPrice,
-            provider
-        )
-    );
+    const [providers, setProviders] = useState([]);
+    useFetchAll(setProviders, ProviderRepository);
+
+    const [selectedProvider, setSelectedProvider] = useState(null);
+
+    const register = useRegister();
 
     const handleRegister = async () => {
         try {
-            await register();
+            const product = await register(
+                ProductRepository,
+                new ProductRegisterDto(
+                    name,
+                    barcode,
+                    unitCost,
+                    unitPrice,
+                )
+            );
+            register(
+                ProductsProvidersRepository,
+                new ProductsProvidersRegisterDto(
+                    product,
+                    selectedProvider
+                )
+            )
         } catch (err) {
             console.log(err);
         }
@@ -63,10 +74,10 @@ const RegisterProductScreen = ({ navigation }) => {
                     </View>
                 </View>
                 <CustomDropdown
-                    placeholder='Proveedores'
-                    selectedValue={provider}
-                    onValueChange={setProvider}
-                    elementList={['Pepsico', 'Coca-Cola']}
+                    placeholder="Proveedores"
+                    selectedValue={selectedProvider}
+                    onValueChange={setSelectedProvider}
+                    elementList={providers}
                 />
                 <CustomInput
                     placeholder='Precio de venta'

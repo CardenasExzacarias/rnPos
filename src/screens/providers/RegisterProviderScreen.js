@@ -12,18 +12,17 @@ const RegisterProviderScreen = ({ navigation }) => {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
-    const register = useRegister(
-        ProviderRepository,
-        new ProviderRegisterDto(
-            name,
-            phone,
-            email
-        )
-    );
+    const register = useRegister();
 
     const handleRegister = async () => {
         try {
-            await register();
+            register(ProviderRepository,
+                new ProviderRegisterDto(
+                    name,
+                    phone,
+                    email
+                )
+            );
         } catch (err) {
             console.log(err);
         }
