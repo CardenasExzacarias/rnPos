@@ -1,8 +1,4 @@
 export default class ProviderRegisterDto {
-    name;
-    phone;
-    email;
-
     constructor(name, phone, email) {
         this.name = name;
         this.phone = phone;

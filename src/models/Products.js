@@ -7,14 +7,7 @@ export class Products extends Model {
         'barcode',
         'unit_cost',
         'unit_price',
-        'updated_at'
+        'quantity',
+        'is_active'
     ];
-
-    id;
-    name;
-    barcode;
-    unit_cost;
-    unit_price;
-    updated_at;
-    created_at;
 }

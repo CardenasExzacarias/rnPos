@@ -14,6 +14,7 @@ export const globalStyles = StyleSheet.create({
         minHeight: 50,
         marginVertical: 10,
         minWidth: '90%',
+        maxWidth: '90%',
         borderRadius: 5,
         borderWidth: 1,
         borderColor: 'black',
@@ -24,4 +25,19 @@ export const globalStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
     },
+    row: {
+        flexDirection: 'row'
+    },
+    column: {
+        flexDirection: 'column'
+    },
+    m5:{
+        margin: 5
+    },
+    mx_5: {
+        marginHorizontal: 5
+    },
+    my_5: {
+        marginVertical: 5
+    }
 })

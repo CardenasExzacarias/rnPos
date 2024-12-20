@@ -6,8 +6,4 @@ export class ProductsProviders extends Model {
         'product_id',
         'provider_id'
     ];
-
-    id;
-    product_id;
-    provider_id;
 }

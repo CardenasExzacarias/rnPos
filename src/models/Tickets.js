@@ -1,15 +1,8 @@
-class Tickets {
-    static get TABLE_NAME() { return 'tickets' };
-    
-    id;
-    folio;
-    created_at;
-    updated_at;
+import Model from "./Model";
 
-    constructor(id, folio, created_at, updated_at){
-        this.id = id;
-        this.folio = folio;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-    }
+export class Tickets extends Model {
+    static table = 'tickets';
+    static fillable = [
+        'folio'
+    ];
 }
