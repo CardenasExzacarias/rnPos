@@ -1,7 +1,12 @@
 import React from 'react'
-import { View, Button, StyleSheet, Pressable, Text } from 'react-native';
+import { StyleSheet, Pressable, Text } from 'react-native';
 
-const GenericButton = ({ text, onPress }) => {
+interface GenericButtonProps {
+    text: string;
+    onPress: () => void;
+}
+
+const GenericButton: React.FC<GenericButtonProps> = ({ text, onPress }) => {
     return (
         <Pressable
             onPress={() => onPress()}

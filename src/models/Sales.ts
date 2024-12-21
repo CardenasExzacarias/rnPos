@@ -1,8 +1,8 @@
 import Model from "./Model";
 
-class Sales extends Model {
-    static table = 'sales';
-    static fillable = [
+export class Sales extends Model {
+    static table: string = 'sales';
+    static fillable: string[] = [
         'unit_cost',
         'unit_price',
         'product_quantity',

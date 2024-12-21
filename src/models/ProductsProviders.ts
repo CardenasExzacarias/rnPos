@@ -1,8 +1,8 @@
 import Model from "./Model";
 
 export class ProductsProviders extends Model {
-    static table = 'products_providers';
-    static fillable = [
+    static table: string = 'products_providers';
+    static fillable: string[] = [
         'product_id',
         'provider_id'
     ];

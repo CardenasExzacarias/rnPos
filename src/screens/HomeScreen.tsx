@@ -2,8 +2,21 @@ import React from 'react'
 import { View, Button, StyleSheet, Pressable, Text } from 'react-native';
 import GenericButton from '../components/GenericButton';
 import { globalStyles } from '../styles/global';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-const HomeScreen = ({ navigation }) => {
+type RootStackParamList = {
+    SellStack: undefined;
+    InventoryStack: undefined;
+    ProvidersStack: undefined;
+};
+
+type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList>;
+
+interface HomeScreenProps {
+    navigation: HomeScreenNavigationProp;
+}
+
+const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <GenericButton

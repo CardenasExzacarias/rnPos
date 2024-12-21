@@ -1,9 +1,11 @@
 import QueryBuilder from "../database/QueryBuilder";
+import { IModelCrud } from "../interfaces/IModelCrud";
 
 export default class Model extends QueryBuilder {
-    static create(fields) {
-        let values = [];
-        let authorizedFields = [];
+    static create(fields: any): IModelCrud {
+        let values: any[] = [];
+        let authorizedFields: string[] = [];
+        
         for (const field in fields) {
             if (this.fillable.includes(field)) {
                 values.push(fields[field]);
@@ -16,10 +18,10 @@ export default class Model extends QueryBuilder {
         return { query, values };
     }
 
-    static update(fields){
-        let values = [];
-        let authorizedFields = [];
-        console.log(fields);
+    static update(fields: any): IModelCrud {
+        let values: any[] = [];
+        let authorizedFields: string[] = [];
+
         for (const field in fields) {
             if (this.fillable.includes(field)) {
                 values.push(fields[field]);

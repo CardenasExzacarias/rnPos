@@ -1,7 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, TextInput, Animated, Text, StyleSheet } from 'react-native';
+import React, { useState, useRef, useEffect, FC, Dispatch, SetStateAction } from 'react';
+import { View, TextInput, Animated, Text, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
 
-const CustomInput = ({ placeholder, value, onChange, labelStyle }) => {
+interface CustomInputProps {
+  placeholder: string;
+  value: any;
+  onChange: Dispatch<SetStateAction<string>>;
+  labelStyle?: StyleProp<ViewStyle | TextStyle>;
+}
+
+const CustomInput: React.FC<CustomInputProps> = ({ placeholder, value, onChange, labelStyle }) => {
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const translateY = useRef(new Animated.Value(0)).current;
 
@@ -32,22 +39,24 @@ const CustomInput = ({ placeholder, value, onChange, labelStyle }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} >
       <Animated.Text
-        style={[
-          styles.label, labelStyle,
-          {
-            transform: [{ translateY }],
-            opacity: translateY.interpolate({
-              inputRange: [-20, 0],
-              outputRange: [1, 0],
-            }),
-          },
-        ]}
+        style={
+          [
+            styles.label, labelStyle,
+            {
+              transform: [{ translateY }],
+              opacity: translateY.interpolate({
+                inputRange: [-20, 0],
+                outputRange: [1, 0],
+              }),
+            },
+          ]
+        }
       >
         {placeholder}
       </Animated.Text>
-      <TextInput
+      < TextInput
         style={styles.input}
         placeholder={showPlaceholder ? placeholder : ''}
         value={value}
@@ -65,20 +74,20 @@ export default CustomInput;
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
+    marginVertical: 20
   },
   label: {
     paddingHorizontal: 7,
     fontSize: 14,
     marginBottom: -47,
     color: '#00000066',
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#f2f2f2'
   },
   input: {
     borderBottomWidth: 1,
     borderColor: 'black',
     height: 40,
     marginVertical: 10,
-    paddingHorizontal: 7,
+    paddingHorizontal: 7
   },
 });

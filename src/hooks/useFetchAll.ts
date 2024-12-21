@@ -1,12 +1,16 @@
 import { useSQLiteContext } from "expo-sqlite";
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 
-export const useFetchAll = (setState, repository, fields = ['*']) => {
+export const useFetchAll = (
+    setState: Dispatch<SetStateAction<any[]>>,
+    repository: any,
+    fields = ['*']
+) => {
     const db = useSQLiteContext();
 
     useEffect(() => {
         const fetchProviders = async () => {
-            let result;
+            let result: any[] = [];
             try {
                 result = await db.getAllAsync(repository.getAll(fields));
             } catch (error) {

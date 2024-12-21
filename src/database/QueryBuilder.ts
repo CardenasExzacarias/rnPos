@@ -1,8 +1,10 @@
-export default class QueryBuilder {
-    static table;
-    static fillable;
+import { IWhere } from "../interfaces/IWhere";
 
-    static create(fields) {
+export default class QueryBuilder {
+    static table: string;
+    static fillable: string[];
+
+    static create(fields: any[]): any | string {
         const last = fields.length - 1;
         let columns = '';
         let columnsValues = '';
@@ -20,7 +22,7 @@ export default class QueryBuilder {
         return `INSERT INTO ${this.table} (${columns}) VALUES (${columnsValues})`;
     }
 
-    static get(fields = ['*']) {
+    static get(fields: string[] = ['*']): any | string {
         const lastElement = fields.length - 1;
         let fieldsString = '';
 
@@ -31,7 +33,7 @@ export default class QueryBuilder {
         return `select ${fieldsString} from ${this.table}`;
     }
 
-    static update(fields, where) {
+    static update(fields: any[], where: IWhere): any | string {
         const last = fields.length - 1;
         let columnsValues = '';
 

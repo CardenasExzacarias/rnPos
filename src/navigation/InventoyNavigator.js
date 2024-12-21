@@ -3,6 +3,7 @@ import ScanWrapper from '../components/wrappers/ScanWrapper';
 import InventoryScreen from '../screens/inventory/InventoryScreen';
 import { InventoryProvider } from '../contexts/InventoryContext';
 import RegisterProductScreen from '../screens/inventory/RegisterProductScreen';
+import EditProductScreen from '../screens/inventory/EditProductScreen';
 
 const InventoryStack = createNativeStackNavigator();
 
@@ -22,6 +23,15 @@ const InventoryNavigator = () => (
                     </ScanWrapper>
                 )}
                 options={{ title: 'Registrar Producto' }}
+            />
+            <InventoryStack.Screen
+                name='EditProduct'
+                component={({ navigation }) => (
+                    <ScanWrapper>
+                        <EditProductScreen navigation={navigation} />
+                    </ScanWrapper>
+                )}
+                options={{ title: 'Editar Producto' }}
             />
         </InventoryStack.Navigator>
     </InventoryProvider>

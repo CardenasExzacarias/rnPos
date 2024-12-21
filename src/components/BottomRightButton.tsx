@@ -1,6 +1,10 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 
-const BottomRightButton = ({ onPress }) => {
+interface BottomRightButtonProps {
+    onPress: () => void;
+}
+
+const BottomRightButton: React.FC<BottomRightButtonProps> = ({ onPress }) => {
     return (
         <Pressable style={styles.addButton} onPress={onPress}>
             <Text style={styles.addButtonText}>+</Text>
@@ -13,12 +17,12 @@ export default BottomRightButton;
 const styles = StyleSheet.create({
     addButton: {
         position: 'absolute',
-        bottom: 20, // Distance from the bottom of the screen
-        right: 20,  // Distance from the right of the screen
+        bottom: 20,
+        right: 20,
         backgroundColor: '#007bff',
         width: 60,
         height: 60,
-        borderRadius: 30, // Makes it circular
+        borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center',
     },

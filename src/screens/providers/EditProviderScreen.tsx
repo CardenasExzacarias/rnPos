@@ -7,18 +7,26 @@ import { Icon } from 'react-native-elements';
 import { ProviderRepository } from '../../repository/ProviderRepository';
 import ProviderEditDto from '../../dtos/providers/ProviderEditDto';
 import { useUpdate } from '../../hooks/useUpdate';
+import { useToast } from '../../hooks/useToast'
+import { IWhere } from '../../interfaces/IWhere';
+import { RouteProp } from '@react-navigation/native';
+import { EditProviderParamList } from '../../types/EditProvider';
 
-const EditProviderScreen = ({ route }) => {
-    const where = route.params.where;
-    const [name, setName] = useState(route.params.name);
-    const [phone, setPhone] = useState(route.params.phone);
-    const [email, setEmail] = useState(route.params.email);
+interface EditProviderScreenProps {
+    route: RouteProp<EditProviderParamList, 'EditProvider'>;
+}
+
+const EditProviderScreen: React.FC<EditProviderScreenProps> = ({ route }) => {
+    const where: IWhere = route.params.where;
+    const [name, setName] = useState<string>(route.params.name);
+    const [phone, setPhone] = useState<string>(route.params.phone);
+    const [email, setEmail] = useState<string>(route.params.email);
     const update = useUpdate();
+    const toast = useToast();
 
     const handleUpdate = async () => {
-        console.log('Actualizado!');
         try {
-            update(ProviderRepository,
+            await update(ProviderRepository,
                 new ProviderEditDto(
                     name,
                     phone,
@@ -26,6 +34,8 @@ const EditProviderScreen = ({ route }) => {
                     where
                 )
             );
+
+            toast('¡Proveedor Actualizado!');
         } catch (err) {
             console.log(err);
         }
