@@ -6,6 +6,10 @@ export const globalStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    center_container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     text: {
         fontSize: 16
     },

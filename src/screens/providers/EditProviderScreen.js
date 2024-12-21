@@ -4,23 +4,26 @@ import { useState } from 'react';
 import CustomInput from '../../components/inputs/CustomInput';
 import GenericButton from '../../components/GenericButton';
 import { Icon } from 'react-native-elements';
-import ProviderRegisterDto from '../../dtos/providers/ProviderRegisterDto';
 import { ProviderRepository } from '../../repository/ProviderRepository';
-import { useRegister } from '../../hooks/useRegister';
+import ProviderEditDto from '../../dtos/providers/ProviderEditDto';
+import { useUpdate } from '../../hooks/useUpdate';
 
-const RegisterProviderScreen = ({ navigation }) => {
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
-    const register = useRegister();
+const EditProviderScreen = ({ route }) => {
+    const where = route.params.where;
+    const [name, setName] = useState(route.params.name);
+    const [phone, setPhone] = useState(route.params.phone);
+    const [email, setEmail] = useState(route.params.email);
+    const update = useUpdate();
 
-    const handleRegister = async () => {
+    const handleUpdate = async () => {
+        console.log('Actualizado!');
         try {
-            register(ProviderRepository,
-                new ProviderRegisterDto(
+            update(ProviderRepository,
+                new ProviderEditDto(
                     name,
                     phone,
-                    email
+                    email,
+                    where
                 )
             );
         } catch (err) {
@@ -49,17 +52,17 @@ const RegisterProviderScreen = ({ navigation }) => {
                 <View style={globalStyles.center_container}>
                     <View style={styles.buttonContainer}>
                         <GenericButton
-                            text={'Registrar'}
-                            onPress={handleRegister}
+                            text={'Actualizar'}
+                            onPress={handleUpdate}
                         />
                     </View>
                 </View>
             </View>
         </View>
     );
-};
+}
 
-export default RegisterProviderScreen;
+export default EditProviderScreen;
 
 const styles = StyleSheet.create({
     form: {

@@ -30,4 +30,23 @@ export default class QueryBuilder {
 
         return `select ${fieldsString} from ${this.table}`;
     }
+
+    static update(fields, where) {
+        const last = fields.length - 1;
+        let columnsValues = '';
+
+        fields.forEach((field, index) => {
+            if (index < last) {
+                columnsValues += '`' + field + '` = ?, ';
+            } else {
+                columnsValues += '`' + field + '` = ?';
+            }
+        });
+
+        return `
+            UPDATE ${this.table}
+            SET ${columnsValues}
+            WHERE ${'`' + where + '`'} = ?
+        `;
+    }
 }

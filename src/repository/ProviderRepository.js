@@ -8,4 +8,8 @@ export class ProviderRepository {
     static getAll(fields = ['*']){
         return Providers.get(fields);
     }
+
+    static update(ProviderEditDto){
+        return Providers.update(ProviderEditDto);
+    }
 }

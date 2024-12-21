@@ -1,9 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, TextInput, Animated, Text, StyleSheet } from 'react-native';
 
-const CustomInput = ({ placeholder, value, onChange }) => {
+const CustomInput = ({ placeholder, value, onChange, labelStyle }) => {
   const [showPlaceholder, setShowPlaceholder] = useState(true);
-  const translateY = useRef(new Animated.Value(0)).current; // Initial position
+  const translateY = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (value !== '') {
+      handleFocus();
+    }
+  }, []);
 
   const handleFocus = () => {
     Animated.timing(translateY, {
@@ -29,7 +35,7 @@ const CustomInput = ({ placeholder, value, onChange }) => {
     <View style={styles.container}>
       <Animated.Text
         style={[
-          styles.label,
+          styles.label, labelStyle,
           {
             transform: [{ translateY }],
             opacity: translateY.interpolate({

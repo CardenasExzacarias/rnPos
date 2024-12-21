@@ -4,9 +4,15 @@ import BottomRightButton from '../../components/BottomRightButton';
 import { ProviderRepository } from '../../repository/ProviderRepository';
 import { useFetchAll } from '../../hooks/useFetchAll';
 import { globalStyles } from '../../styles/global';
+import GenericButton from '../../components/GenericButton';
+import CustomModal from '../../components/CustomModal';
+import CustomInput from '../../components/inputs/CustomInput';
+import { useUpdate } from '../../hooks/useUpdate';
+import ProviderEditDto from '../../dtos/providers/ProviderEditDto';
 
 const ProvidersScreen = ({ navigation }) => {
     const [providers, setProviers] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false);
     useFetchAll(setProviers, ProviderRepository, [
         'id',
         'name',
@@ -23,7 +29,12 @@ const ProvidersScreen = ({ navigation }) => {
                 renderItem={({ item }) => (
                     <View style={globalStyles.item}>
                         <View style={globalStyles.row}>
-                            <Text>{item.name}</Text>
+                            <View style={globalStyles.column}>
+                                <Text>Nombre:</Text>
+                            </View>
+                            <View style={[globalStyles.column, globalStyles.mx_5]}>
+                                <Text>{item.name}</Text>
+                            </View>
                         </View>
                         <View style={[globalStyles.row, globalStyles.my_5]}>
                             <View style={globalStyles.column}>
@@ -43,6 +54,18 @@ const ProvidersScreen = ({ navigation }) => {
                                 </View>
                             </View>
                         </View>
+                        <GenericButton
+                            text='editar'
+                            onPress={() => navigation.navigate('EditProvider', new ProviderEditDto(
+                                item.name,
+                                item.phone,
+                                item.email,
+                                {
+                                    field: 'id',
+                                    value: item.id
+                                }
+                            ))}
+                        />
                     </View>
                 )}
             />
