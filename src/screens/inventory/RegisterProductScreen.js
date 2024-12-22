@@ -8,10 +8,10 @@ import { Icon } from 'react-native-elements';
 import { ProductRegisterDto } from '../../dtos/products/ProductRegisterDto';
 import { ProductRepository } from '../../repository/ProductRepository';
 import { useRegister } from '../../hooks/useRegister';
-import { ProviderRepository } from '../../repository/ProviderRepository';
+import { SupplierRepository } from '../../repository/SupplierRepository';
 import { useFetchAll } from '../../hooks/useFetchAll';
-import { ProductsProvidersRegisterDto } from '../../dtos/productsProviders/ProductsProvidersRegisterDto';
-import { ProductsProvidersRepository } from '../../repository/ProductsProvidersRepository';
+import { ProductsSuppliersRegisterDto } from '../../dtos/productsSuppliers/ProductsSuppliersRegisterDto';
+import { ProductsSuppliersRepository } from '../../repository/ProductsSuppliersRepository';
 
 const RegisterProductScreen = ({ navigation }) => {
     const [name, setName] = useState('');
@@ -19,10 +19,10 @@ const RegisterProductScreen = ({ navigation }) => {
     const [unitPrice, setUnitPrice] = useState('');
     const [barcode, setBarcode] = useState('');
 
-    const [providers, setProviders] = useState([]);
-    useFetchAll(setProviders, ProviderRepository);
+    const [suppliers, setSuppliers] = useState([]);
+    useFetchAll(setSuppliers, SupplierRepository, ['id', 'name']);
 
-    const [selectedProvider, setSelectedProvider] = useState(null);
+    const [selectedSupplier, setSelectedSupplier] = useState(null);
 
     const register = useRegister();
 
@@ -38,10 +38,10 @@ const RegisterProductScreen = ({ navigation }) => {
                 )
             );
             register(
-                ProductsProvidersRepository,
-                new ProductsProvidersRegisterDto(
+                ProductsSuppliersRepository,
+                new ProductsSuppliersRegisterDto(
                     product,
-                    selectedProvider
+                    selectedSupplier
                 )
             )
         } catch (err) {
@@ -75,9 +75,9 @@ const RegisterProductScreen = ({ navigation }) => {
                 </View>
                 <CustomDropdown
                     placeholder="Proveedores"
-                    selectedValue={selectedProvider}
-                    onValueChange={setSelectedProvider}
-                    elementList={providers}
+                    selectedValue={selectedSupplier}
+                    onValueChange={setSelectedSupplier}
+                    elementList={suppliers}
                 />
                 <CustomInput
                     placeholder='Precio de venta'

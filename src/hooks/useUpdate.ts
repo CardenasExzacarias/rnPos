@@ -1,4 +1,4 @@
-import { SQLiteRunResult, useSQLiteContext } from 'expo-sqlite';
+import { useSQLiteContext } from 'expo-sqlite';
 
 export const useUpdate = () => {
     const db = useSQLiteContext();

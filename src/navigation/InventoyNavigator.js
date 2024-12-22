@@ -26,11 +26,7 @@ const InventoryNavigator = () => (
             />
             <InventoryStack.Screen
                 name='EditProduct'
-                component={({ navigation }) => (
-                    <ScanWrapper>
-                        <EditProductScreen navigation={navigation} />
-                    </ScanWrapper>
-                )}
+                component={EditProductScreen}
                 options={{ title: 'Editar Producto' }}
             />
         </InventoryStack.Navigator>

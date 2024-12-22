@@ -6,7 +6,7 @@ import { initDatabase } from '../database/database';
 import HomeScreen from '../screens/HomeScreen';
 import SellNavigator from './SellNavigator';
 import InventoryNavigator from './InventoyNavigator';
-import ProvidersNavigator from './ProvidersNavigator';
+import SuppliersNavigator from './SuppliersNavigator';
 
 const AppStack = createNativeStackNavigator();
 
@@ -25,8 +25,8 @@ const AppNavigator = () => (
                     options={{ headerShown: false }}
                 />
                 <AppStack.Screen
-                    name="ProvidersStack"
-                    component={ProvidersNavigator}
+                    name="SuppliersStack"
+                    component={SuppliersNavigator}
                     options={{ headerShown: false }}
                 />
                 <AppStack.Screen

@@ -1,11 +1,11 @@
 /*
             DROP TABLE IF EXISTS products;
-            DROP TABLE IF EXISTS providers;
+            DROP TABLE IF EXISTS suppliers;
             DROP TABLE IF EXISTS tickets;
             DROP TABLE IF EXISTS promotions;
             DROP TABLE IF EXISTS discounts;
             DROP TABLE IF EXISTS debts;
-            DROP TABLE IF EXISTS products_providers;
+            DROP TABLE IF EXISTS products_suppliers;
             DROP TABLE IF EXISTS products_promotions;
             DROP TABLE IF EXISTS sales;
 
@@ -45,9 +45,9 @@
 
             DROP TABLE IF EXISTS tickets;
             DROP TABLE IF EXISTS sales;
-            DROP TABLE IF EXISTS products_providers;
+            DROP TABLE IF EXISTS products_suppliers;
             DROP TABLE IF EXISTS products;
-            DROP TABLE IF EXISTS providers;
+            DROP TABLE IF EXISTS suppliers;
 */
 export const initDatabase = async (db) => {
     try {
@@ -67,7 +67,7 @@ export const initDatabase = async (db) => {
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
 
-            CREATE TABLE IF NOT EXISTS providers(
+            CREATE TABLE IF NOT EXISTS suppliers(
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 name TEXT NOT NULL DEFAULT '',
                 phone TEXT,
@@ -83,12 +83,12 @@ export const initDatabase = async (db) => {
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
 
-            CREATE TABLE IF NOT EXISTS products_providers(
+            CREATE TABLE IF NOT EXISTS products_suppliers(
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 product_id INTEGER NOT NULL,
-                provider_id INTEGER NOT NULL,
+                supplier_id INTEGER NOT NULL,
                 FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
-                FOREIGN KEY (provider_id) REFERENCES providers(id) ON DELETE SET NULL
+                FOREIGN KEY (supplier_id) REFERENCES suppliers(id) ON DELETE SET NULL
             );
 
             CREATE TABLE IF NOT EXISTS sales(
@@ -112,10 +112,10 @@ export const initDatabase = async (db) => {
             END;
 
             CREATE TRIGGER IF NOT EXISTS update_timestamp
-            AFTER UPDATE ON providers
+            AFTER UPDATE ON suppliers
             FOR EACH ROW
             BEGIN
-                UPDATE providers
+                UPDATE suppliers
                 SET updated_at = CURRENT_TIMESTAMP
                 WHERE id = OLD.id AND OLD.updated_at != CURRENT_TIMESTAMP;
             END;

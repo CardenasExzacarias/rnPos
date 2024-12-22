@@ -19,8 +19,8 @@ const CustomDropdown = ({ selectedValue, onValueChange, elementList, placeholder
                 onValueChange={itemValue => onValueChange(itemValue)}
             >
                 {
-                    elementList.map((provider, index) => (
-                        <Picker.Item key={index} label={provider.name} value={provider.id} />
+                    elementList.map((supplier, index) => (
+                        <Picker.Item key={index} label={supplier.name} value={supplier.id} />
                     ))
                 }
             </Picker>

@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Button, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import BottomRightButton from '../../components/BottomRightButton';
-import { ProviderRepository } from '../../repository/ProviderRepository';
+import { SupplierRepository } from '../../repository/SupplierRepository';
 import { useFetchAll } from '../../hooks/useFetchAll';
 import { globalStyles } from '../../styles/global';
 import GenericButton from '../../components/GenericButton';
-import CustomModal from '../../components/CustomModal';
-import CustomInput from '../../components/inputs/CustomInput';
-import { useUpdate } from '../../hooks/useUpdate';
-import ProviderEditDto from '../../dtos/providers/ProviderEditDto';
+import SupplierEditDto from '../../dtos/suppliers/SupplierEditDto';
 
-const ProvidersScreen = ({ navigation }) => {
-    const [providers, setProviers] = useState([]);
-    const [modalVisible, setModalVisible] = useState(false);
-    useFetchAll(setProviers, ProviderRepository, [
+const SuppliersScreen = ({ navigation }) => {
+    const [suppliers, setProviers] = useState([]);
+
+    useFetchAll(setProviers, SupplierRepository, [
         'id',
         'name',
         'phone',
@@ -24,7 +21,7 @@ const ProvidersScreen = ({ navigation }) => {
         <View style={styles.container}>
             <FlatList
                 contentContainerStyle={styles.listContainer}
-                data={providers}
+                data={suppliers}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
                     <View style={globalStyles.item}>
@@ -56,7 +53,7 @@ const ProvidersScreen = ({ navigation }) => {
                         </View>
                         <GenericButton
                             text='editar'
-                            onPress={() => navigation.navigate('EditProvider', new ProviderEditDto(
+                            onPress={() => navigation.navigate('EditSupplier', new SupplierEditDto(
                                 item.name,
                                 item.phone,
                                 item.email,
@@ -69,12 +66,12 @@ const ProvidersScreen = ({ navigation }) => {
                     </View>
                 )}
             />
-            <BottomRightButton onPress={() => navigation.navigate('RegisterProvider')} />
+            <BottomRightButton onPress={() => navigation.navigate('RegisterSupplier')} />
         </View>
     );
 };
 
-export default ProvidersScreen;
+export default SuppliersScreen;
 
 const styles = StyleSheet.create({
     container: {

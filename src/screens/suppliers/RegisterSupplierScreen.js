@@ -4,11 +4,11 @@ import { useState } from 'react';
 import CustomInput from '../../components/inputs/CustomInput';
 import GenericButton from '../../components/GenericButton';
 import { Icon } from 'react-native-elements';
-import ProviderRegisterDto from '../../dtos/providers/ProviderRegisterDto';
-import { ProviderRepository } from '../../repository/ProviderRepository';
+import SupplierRegisterDto from '../../dtos/suppliers/SupplierRegisterDto';
+import { SupplierRepository } from '../../repository/SupplierRepository';
 import { useRegister } from '../../hooks/useRegister';
 
-const RegisterProviderScreen = ({ navigation }) => {
+const RegisterSupplierScreen = ({ navigation }) => {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
@@ -16,8 +16,8 @@ const RegisterProviderScreen = ({ navigation }) => {
 
     const handleRegister = async () => {
         try {
-            register(ProviderRepository,
-                new ProviderRegisterDto(
+            register(SupplierRepository,
+                new SupplierRegisterDto(
                     name,
                     phone,
                     email
@@ -59,7 +59,7 @@ const RegisterProviderScreen = ({ navigation }) => {
     );
 };
 
-export default RegisterProviderScreen;
+export default RegisterSupplierScreen;
 
 const styles = StyleSheet.create({
     form: {

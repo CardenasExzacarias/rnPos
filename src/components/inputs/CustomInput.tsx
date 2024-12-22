@@ -1,5 +1,21 @@
-import React, { useState, useRef, useEffect, FC, Dispatch, SetStateAction } from 'react';
-import { View, TextInput, Animated, Text, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  FC,
+  Dispatch,
+  SetStateAction,
+} from "react";
+import {
+  View,
+  TextInput,
+  Animated,
+  Text,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+} from "react-native";
 
 interface CustomInputProps {
   placeholder: string;
@@ -8,12 +24,17 @@ interface CustomInputProps {
   labelStyle?: StyleProp<ViewStyle | TextStyle>;
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({ placeholder, value, onChange, labelStyle }) => {
+const CustomInput: React.FC<CustomInputProps> = ({
+  placeholder,
+  value,
+  onChange,
+  labelStyle,
+}) => {
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const translateY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    if (value !== '') {
+    if (value !== "") {
       handleFocus();
     }
   }, []);
@@ -28,7 +49,7 @@ const CustomInput: React.FC<CustomInputProps> = ({ placeholder, value, onChange,
   };
 
   const handleBlur = () => {
-    if (value === '') {
+    if (value === "") {
       Animated.timing(translateY, {
         toValue: 0,
         duration: 300,
@@ -39,26 +60,25 @@ const CustomInput: React.FC<CustomInputProps> = ({ placeholder, value, onChange,
   };
 
   return (
-    <View style={styles.container} >
+    <View style={styles.container}>
       <Animated.Text
-        style={
-          [
-            styles.label, labelStyle,
-            {
-              transform: [{ translateY }],
-              opacity: translateY.interpolate({
-                inputRange: [-20, 0],
-                outputRange: [1, 0],
-              }),
-            },
-          ]
-        }
+        style={[
+          styles.label,
+          labelStyle,
+          {
+            transform: [{ translateY }],
+            opacity: translateY.interpolate({
+              inputRange: [-20, 0],
+              outputRange: [1, 0],
+            }),
+          },
+        ]}
       >
         {placeholder}
       </Animated.Text>
-      < TextInput
+      <TextInput
         style={styles.input}
-        placeholder={showPlaceholder ? placeholder : ''}
+        placeholder={showPlaceholder ? placeholder : ""}
         value={value}
         onChangeText={(input) => {
           onChange(input);
@@ -74,20 +94,20 @@ export default CustomInput;
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20
+    marginVertical: 20,
   },
   label: {
     paddingHorizontal: 7,
     fontSize: 14,
     marginBottom: -47,
-    color: '#00000066',
-    backgroundColor: '#f2f2f2'
+    color: "#00000066",
+    backgroundColor: "#f2f2f2",
   },
   input: {
     borderBottomWidth: 1,
-    borderColor: 'black',
+    borderColor: "black",
     height: 40,
     marginVertical: 10,
-    paddingHorizontal: 7
+    paddingHorizontal: 7,
   },
 });

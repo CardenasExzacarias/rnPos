@@ -1,8 +1,32 @@
+import { JoinTransaction } from "../types/JoinTransaction";
 import { IWhere } from "../interfaces/IWhere";
 
 export default class QueryBuilder {
     static table: string;
+    static alias: string;
     static fillable: string[];
+    static searchable: string[];
+
+    private static readonly logicalOperators: string[] = [
+        '=',
+        '!=',
+        '||',
+        '&&'
+    ];
+
+    private static sanitize(field: string): string {
+        return '`' + field + '`';
+    }
+
+    private static sanitizeByDot(field: string): string {
+        if (field.includes('.')) {
+            const [table, column] = field.split('.');
+
+            return '`' + table + '`.`' + column + '`';
+        }
+
+        return field;
+    }
 
     static create(fields: any[]): any | string {
         const last = fields.length - 1;
@@ -11,10 +35,10 @@ export default class QueryBuilder {
 
         fields.forEach((field, index) => {
             if (index < last) {
-                columns += '`' + field + '`, ';
+                columns += this.sanitizeByDot(field) + ', ';
                 columnsValues += `?, `;
             } else {
-                columns += '`' + field + '`';
+                columns += this.sanitizeByDot(field);
                 columnsValues += `?`;
             }
         });
@@ -27,28 +51,62 @@ export default class QueryBuilder {
         let fieldsString = '';
 
         fields.forEach((field, index) => (
-            fieldsString += lastElement !== index ? `${field}, ` : field
+            fieldsString += lastElement !== index ?
+                this.sanitizeByDot(field) + ', ' :
+                this.sanitizeByDot(field)
         ));
 
-        return `select ${fieldsString} from ${this.table}`;
+        return `SELECT ${fieldsString} FROM `
+            + '`' + this.table + '`';
     }
 
-    static update(fields: any[], where: IWhere): any | string {
+    static update(fields: any[], whereField: string): any | string {
         const last = fields.length - 1;
         let columnsValues = '';
 
         fields.forEach((field, index) => {
             if (index < last) {
-                columnsValues += '`' + field + '` = ?, ';
+                columnsValues += this.sanitizeByDot(field) + ' = ?, ';
             } else {
-                columnsValues += '`' + field + '` = ?';
+                columnsValues += this.sanitizeByDot(field) + ' = ?';
             }
         });
 
         return `
             UPDATE ${this.table}
             SET ${columnsValues}
-            WHERE ${'`' + where + '`'} = ?
+            WHERE ${this.sanitizeByDot(whereField)} = ?
         `;
+    }
+
+    static select(fields: string[]): string {
+        let query: string = 'SELECT ';
+        let lastField = fields.length - 1;
+        fields.forEach((field, index) => (
+            query += lastField !== index ? `${field}, ` : `${field} `
+        ));
+
+        return query;
+    }
+
+    static from(table: string): string {
+        return `FROM ${table} `;
+    }
+
+    static as(alias: string): string {
+        return 'AS ' + this.sanitize(alias);
+    }
+
+    static innerJoin(join: JoinTransaction): string {
+        return 'INNER JOIN ' + this.sanitize(join.join)
+            + `${join.as ? this.as(join.as) : ' '}ON `
+            + this.sanitizeByDot(join.onFirstTable)
+            + ` ${this
+                .logicalOperators
+                .includes(join.operator) ?
+                join.operator :
+                '='
+            }`
+            + this.sanitizeByDot(join.onSecondTable);
     }
 }

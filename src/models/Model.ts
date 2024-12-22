@@ -1,33 +1,55 @@
 import QueryBuilder from "../database/QueryBuilder";
 import { IModelCrud } from "../interfaces/IModelCrud";
+import { ValidateDto } from "../types/ModelTypes";
 
 export default class Model extends QueryBuilder {
-    static create(fields: any): IModelCrud {
-        let values: any[] = [];
-        let authorizedFields: string[] = [];
-        
+    static validateFieldsByArray(fields: string[], validator: string[]): string[] {
+        const authorizedFields: string[] = [];
+
+        fields.forEach((field) => {
+            if (validator.includes(field)) {
+                authorizedFields.push(field);
+            }
+
+            if (field.includes('.')) {
+                const [table, column] = field.split('.');
+                if (table === this.alias && validator.includes(column)) {
+                    authorizedFields.push(field);
+                }
+            }
+        });
+
+        return authorizedFields;
+    }
+
+    static validateDto(fields: any, validator: string[]): ValidateDto {
+        const authorizedFields: string[] = [];
+        const values: any[] = [];
         for (const field in fields) {
-            if (this.fillable.includes(field)) {
+            if (validator.includes(field)) {
                 values.push(fields[field]);
                 authorizedFields.push(field);
             }
         }
+
+        return { authorizedFields, values };
+    }
+
+    static create(fields: any): IModelCrud {
+        const { authorizedFields, values } = this.validateDto(fields, this.fillable);
 
         const query = super.create(authorizedFields);
 
         return { query, values };
     }
 
-    static update(fields: any): IModelCrud {
-        let values: any[] = [];
-        let authorizedFields: string[] = [];
+    static get(fields: string[] = ['*']) {
+        const authorizedFields: string[] = this.validateFieldsByArray(fields, this.searchable);
+        return super.get(authorizedFields);
+    }
 
-        for (const field in fields) {
-            if (this.fillable.includes(field)) {
-                values.push(fields[field]);
-                authorizedFields.push(field);
-            }
-        }
+    static update(fields: any): IModelCrud {
+        const { authorizedFields, values } = this.validateDto(fields, this.fillable);
 
         values.push(fields.where.value);
 

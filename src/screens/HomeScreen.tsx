@@ -7,7 +7,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 type RootStackParamList = {
     SellStack: undefined;
     InventoryStack: undefined;
-    ProvidersStack: undefined;
+    SuppliersStack: undefined;
 };
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -28,7 +28,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 text={"Inventario"}
             />
             <GenericButton
-                onPress={() => navigation.navigate('ProvidersStack')}
+                onPress={() => navigation.navigate('SuppliersStack')}
                 text={"Proveedores"}
             />
         </View>

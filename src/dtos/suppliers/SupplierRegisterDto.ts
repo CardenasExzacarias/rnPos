@@ -1,4 +1,4 @@
-export default class ProviderRegisterDto {
+export default class SupplierRegisterDto {
     public name: string;
     public phone: string;
     public email: string;

@@ -9,7 +9,7 @@ export const useFetchAll = (
     const db = useSQLiteContext();
 
     useEffect(() => {
-        const fetchProviders = async () => {
+        const fetchSuppliers = async () => {
             let result: any[] = [];
             try {
                 result = await db.getAllAsync(repository.getAll(fields));
@@ -19,6 +19,6 @@ export const useFetchAll = (
             setState(result);
         };
 
-        fetchProviders();
+        fetchSuppliers();
     }, []);
 };
