@@ -27,10 +27,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 onPress={() => navigation.navigate('InventoryStack')}
                 text={"Inventario"}
             />
-            <GenericButton
-                onPress={() => navigation.navigate('SuppliersStack')}
-                text={"Proveedores"}
-            />
         </View>
     );
 };
