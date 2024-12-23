@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { EditProductParamList } from "../../types/EditProduct";
 import { RouteProp } from "@react-navigation/native";
 import { useUpdate } from "../../hooks/useUpdate";
@@ -7,15 +7,20 @@ import { useToast } from "../../hooks/useToast";
 import { ProductRepository } from "../../repository/ProductRepository";
 import { ProductEditDto } from "../../dtos/products/ProductEditDto";
 import { IWhere } from "../../interfaces/IWhere";
-import { useFetchAll } from "../../hooks/useFetchAll";
 import { useFind } from "../../hooks/useFind";
 import GenericButton from "../../components/GenericButton";
 import CustomInput from "../../components/inputs/CustomInput";
 import { globalStyles } from "../../styles/global";
+import { StackScreenProps } from "@react-navigation/stack";
+import { InventoryStackParamList } from "../../types/General";
 
-interface EditProductScreenProps {
-  route: RouteProp<EditProductParamList, "InventoryProduct">;
-}
+type EditProductScreenProps = StackScreenProps<InventoryStackParamList, 'EditProduct'>;
+
+type findProduct = {
+  barcode: string;
+  unit_cost: number;
+};
+
 
 const EditProductScreen: React.FC<EditProductScreenProps> = ({ route }) => {
   const where: IWhere = {
@@ -25,13 +30,16 @@ const EditProductScreen: React.FC<EditProductScreenProps> = ({ route }) => {
 
   const [name, setName] = useState<string>(route.params.name);
   const [quantity, setQuantity] = useState<string>(
-    route.params.quantity.toString()
+    route.params.quantity ? route.params.quantity.toString() : ""
   );
   const [unitPrice, setUnitPrice] = useState<string>(
-    route.params.unit_price.toString()
+    route.params.unit_price ? route.params.unit_price.toString() : ""
   );
 
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState<findProduct>({
+    barcode: "",
+    unit_cost: 0,
+  });
 
   useFind(setProduct, ProductRepository, ["barcode", "unit_cost"], where);
 
@@ -41,7 +49,7 @@ const EditProductScreen: React.FC<EditProductScreenProps> = ({ route }) => {
   useEffect(() => {
     if (product && product.barcode && product.unit_cost) {
       setBarcode(product.barcode);
-      setUnitCost(product.unit_cost.toString());
+      setUnitCost(product.unit_cost ? product.unit_cost.toString() : "");
     }
   }, [product]);
 

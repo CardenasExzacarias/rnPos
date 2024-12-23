@@ -4,7 +4,7 @@ import { IWhere } from "../interfaces/IWhere";
 import { IModelCrud } from "../interfaces/IModelCrud";
 
 export const useFind = (
-    setState: Dispatch<SetStateAction<{}>>,
+    setState: Dispatch<SetStateAction<any>>,
     repository: any,
     fields = ['*'],
     where: IWhere
