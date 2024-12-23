@@ -20,7 +20,7 @@ import {
 interface CustomInputProps {
   placeholder: string;
   value: any;
-  onChange: Dispatch<SetStateAction<string>>;
+  onChange: Dispatch<SetStateAction<any>>;
   labelStyle?: StyleProp<ViewStyle | TextStyle>;
 }
 
@@ -37,7 +37,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
     if (value !== "") {
       handleFocus();
     }
-  }, []);
+  }, [value]);
 
   const handleFocus = () => {
     Animated.timing(translateY, {

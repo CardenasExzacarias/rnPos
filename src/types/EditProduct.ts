@@ -1,5 +1,5 @@
-import { ProductEditDto } from "../dtos/products/ProductEditDto";
+import { InventoryProductDto } from "../dtos/products/InventoryProductDto";
 
 export type EditProductParamList = {
-    EditProduct: ProductEditDto;
+    InventoryProduct: InventoryProductDto;
 };

@@ -67,28 +67,11 @@ export const initDatabase = async (db) => {
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
 
-            CREATE TABLE IF NOT EXISTS suppliers(
-                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                name TEXT NOT NULL DEFAULT '',
-                phone TEXT,
-                email TEXT,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            );
-
             CREATE TABLE IF NOT EXISTS tickets(
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 folio TEXT UNIQUE NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            );
-
-            CREATE TABLE IF NOT EXISTS products_suppliers(
-                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                product_id INTEGER NOT NULL,
-                supplier_id INTEGER NOT NULL,
-                FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
-                FOREIGN KEY (supplier_id) REFERENCES suppliers(id) ON DELETE SET NULL
             );
 
             CREATE TABLE IF NOT EXISTS sales(
@@ -107,15 +90,6 @@ export const initDatabase = async (db) => {
             FOR EACH ROW
             BEGIN
                 UPDATE products
-                SET updated_at = CURRENT_TIMESTAMP
-                WHERE id = OLD.id AND OLD.updated_at != CURRENT_TIMESTAMP;
-            END;
-
-            CREATE TRIGGER IF NOT EXISTS update_timestamp
-            AFTER UPDATE ON suppliers
-            FOR EACH ROW
-            BEGIN
-                UPDATE suppliers
                 SET updated_at = CURRENT_TIMESTAMP
                 WHERE id = OLD.id AND OLD.updated_at != CURRENT_TIMESTAMP;
             END;

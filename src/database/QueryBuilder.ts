@@ -60,6 +60,13 @@ export default class QueryBuilder {
             + '`' + this.table + '`';
     }
 
+    static find(fields: string[] = ['*'], whereField: string): any | string {
+        let query = this.get(fields);
+        query += ` ${this.where(whereField)}`;
+
+        return query;
+    }
+
     static update(fields: any[], whereField: string): any | string {
         const last = fields.length - 1;
         let columnsValues = '';
@@ -108,5 +115,9 @@ export default class QueryBuilder {
                 '='
             }`
             + this.sanitizeByDot(join.onSecondTable);
+    }
+
+    static where(whereField: string): string {
+        return `WHERE ${this.sanitizeByDot(whereField)} = ?`
     }
 }

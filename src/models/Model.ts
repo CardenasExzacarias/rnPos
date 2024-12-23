@@ -1,5 +1,6 @@
 import QueryBuilder from "../database/QueryBuilder";
 import { IModelCrud } from "../interfaces/IModelCrud";
+import { IWhere } from "../interfaces/IWhere";
 import { ValidateDto } from "../types/ModelTypes";
 
 export default class Model extends QueryBuilder {
@@ -46,6 +47,12 @@ export default class Model extends QueryBuilder {
     static get(fields: string[] = ['*']) {
         const authorizedFields: string[] = this.validateFieldsByArray(fields, this.searchable);
         return super.get(authorizedFields);
+    }
+
+    static find(fields: string[] = ['*'], where: IWhere): IModelCrud {
+        const authorizedFields: string[] = this.validateFieldsByArray(fields, this.searchable);
+        const query = super.find(authorizedFields, where.field);
+        return { query, values: [where.value] }
     }
 
     static update(fields: any): IModelCrud {

@@ -7,7 +7,6 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 type RootStackParamList = {
     SellStack: undefined;
     InventoryStack: undefined;
-    SuppliersStack: undefined;
 };
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList>;

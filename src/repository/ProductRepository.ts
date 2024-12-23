@@ -1,41 +1,23 @@
-import QueryBuilder from "../database/QueryBuilder";
+import { ProductEditDto } from "../dtos/products/ProductEditDto";
 import { ProductRegisterDto } from "../dtos/products/ProductRegisterDto";
+import { IModelCrud } from "../interfaces/IModelCrud";
+import { IWhere } from "../interfaces/IWhere";
 import { Products } from "../models/Products";
-import { ProductsSuppliers } from "../models/ProductsSuppliers";
-import { Suppliers } from "../models/Suppliers";
-import { JoinTransaction } from "../types/JoinTransaction";
 
 export class ProductRepository {
     static create(dto: ProductRegisterDto) {
         return Products.create(dto);
     }
 
-    static getAll(fields: string[]) {
-        let query = QueryBuilder.select(fields);
+    static getAll(fields: string[] = ['*']) {
+        return Products.get(fields);
+    }
 
-        query += QueryBuilder.from(Products.table);
+    static update(dto: ProductEditDto) {
+        return Products.update(dto);
+    }
 
-        query += QueryBuilder.as(Products.alias);
-
-        const joins: JoinTransaction[] = [
-            {
-                join: ProductsSuppliers.table,
-                as: ProductsSuppliers.alias,
-                onFirstTable: `${Products.alias}.id`,
-                operator: '=',
-                onSecondTable: `${ProductsSuppliers.alias}.product_id`
-            },
-            {
-                join: Suppliers.table,
-                as: Suppliers.alias,
-                onFirstTable: `${Suppliers.alias}.id`,
-                operator: '=',
-                onSecondTable: `${ProductsSuppliers.alias}.supplier_id`
-            }
-        ];
-
-        joins.forEach((join) => query += ` ${QueryBuilder.innerJoin(join)}`);
-
-        return query;
+    static find(fields: string[] = ['*'], where: IWhere): IModelCrud {
+        return Products.find(fields, where);
     }
 }

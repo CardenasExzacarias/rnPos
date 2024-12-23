@@ -1,9 +1,10 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ScanWrapper from '../components/wrappers/ScanWrapper';
+import ScanWrapper from '../wrappers/SellScanWrapper';
 import InventoryScreen from '../screens/inventory/InventoryScreen';
 import { InventoryProvider } from '../contexts/InventoryContext';
 import RegisterProductScreen from '../screens/inventory/RegisterProductScreen';
 import EditProductScreen from '../screens/inventory/EditProductScreen';
+import RegisterProductNavigator from './RegisterProductNavigator'
 
 const InventoryStack = createNativeStackNavigator();
 
@@ -16,13 +17,9 @@ const InventoryNavigator = () => (
                 options={{ title: 'Inventario' }}
             />
             <InventoryStack.Screen
-                name='RegisterProduct'
-                component={({ navigation }) => (
-                    <ScanWrapper>
-                        <RegisterProductScreen navigation={navigation} />
-                    </ScanWrapper>
-                )}
-                options={{ title: 'Registrar Producto' }}
+                name='RegisterProductStack'
+                component={RegisterProductNavigator}
+                options={{ headerShown: false }}
             />
             <InventoryStack.Screen
                 name='EditProduct'
