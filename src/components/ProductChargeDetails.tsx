@@ -1,11 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { Dispatch, SetStateAction, useContext, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { globalStyles } from "../styles/global";
 import { Icon } from "react-native-elements";
 import ItemCount from "./ItemCount";
 import { SellContext } from "../contexts/SellContext";
 
-const ProductsChargeDetails = ({ componentKey, product, count }) => {
+type ProductsChargeDetailsProps = {
+  componentKey: any;
+  product: string;
+  count: number;
+}
+
+
+const ProductsChargeDetails: React.FC<ProductsChargeDetailsProps> = ({ componentKey, product, count }) => {
   const price = 15;
 
   const [productCount, setProductCount] = useState(count);

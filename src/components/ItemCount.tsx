@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import { Pressable, StyleSheet, Text } from 'react-native';
 import { View } from 'react-native'
 import { globalStyles } from '../styles/global';
 import { Icon } from 'react-native-elements';
 
-const ItemCount = ({ count, setCount }) => {
+type ItemCountProps = {
+    count: number;
+    setCount: Dispatch<SetStateAction<number>>,
+}
+
+const ItemCount: React.FC<ItemCountProps> = ({ count, setCount }) => {
     return (
         <View style={globalStyles.itemRow}>
             <Pressable style={

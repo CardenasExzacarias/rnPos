@@ -38,14 +38,19 @@ const ProductsScreen: React.FC<ProductsScreenProps> = ({ navigation }) => {
         data={products}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={[globalStyles.item, globalStyles.itemRow]}>
-            <Text>{item.name}</Text>
-            <Text>{item.quantity}</Text>
-            <GenericButton
-              text="Editar"
-              onPress={() => navigation.navigate("EditProduct", item)}
-            />
-          </View>
+          <Pressable
+            style={globalStyles.item}
+            onPress={() => navigation.navigate("EditProduct", item)}
+          >
+            <View style={[globalStyles.itemRow]}>
+              <Text>{item.name}</Text>
+              <Text>${item.unit_price}</Text>
+            </View>
+            <View style={globalStyles.row}>
+              <Text>Disponibles: </Text>
+              <Text>{item.quantity}</Text>
+            </View>
+          </Pressable>
         )}
       />
       <BottomRightButton

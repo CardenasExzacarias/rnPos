@@ -6,6 +6,7 @@ import { initDatabase } from "../database/database";
 import HomeScreen from "../screens/HomeScreen";
 import SellNavigator from "./SellNavigator";
 import InventoryNavigator from "./InventoyNavigator";
+import StatisticsScreen from "../screens/StatisticsScreen";
 
 const AppStack = createNativeStackNavigator();
 
@@ -27,6 +28,11 @@ const AppNavigator: React.FC = () => (
           name="SellStack"
           component={SellNavigator}
           options={{ headerShown: false }}
+        />
+        <AppStack.Screen
+          name="Statistics"
+          component={StatisticsScreen}
+          options={{ title: 'Estadísticas' }}
         />
       </AppStack.Navigator>
     </NavigationContainer>

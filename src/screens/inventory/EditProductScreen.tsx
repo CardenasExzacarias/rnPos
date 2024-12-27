@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { EditProductParamList } from "../../types/EditProduct";
-import { RouteProp } from "@react-navigation/native";
 import { useUpdate } from "../../hooks/useUpdate";
 import { useToast } from "../../hooks/useToast";
 import { ProductRepository } from "../../repository/ProductRepository";
@@ -20,7 +18,6 @@ type findProduct = {
   barcode: string;
   unit_cost: number;
 };
-
 
 const EditProductScreen: React.FC<EditProductScreenProps> = ({ route }) => {
   const where: IWhere = {
@@ -70,7 +67,7 @@ const EditProductScreen: React.FC<EditProductScreenProps> = ({ route }) => {
         )
       );
 
-      toast("¡Proveedor Actualizado!");
+      toast("¡Producto Actualizado!");
     } catch (err) {
       console.log(err);
       toast("Ups, algo salió mal...");

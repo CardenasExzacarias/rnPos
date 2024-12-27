@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import { Text, View } from 'react-native';
 import { Button, Modal, StyleSheet } from 'react-native'
 
-const CustomModal = ({ children, isVisible, setIsVisible }) => {
+type CustomModalProps = {
+  children?: any;
+  isVisible: boolean;
+  setIsVisible: Dispatch<SetStateAction<boolean>>,
+}
+
+const CustomModal: React.FC<CustomModalProps> = ({ children, isVisible, setIsVisible }) => {
   return (
     <Modal
       animationType="fade"

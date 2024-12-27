@@ -1,3 +1,5 @@
+import { SQLiteDatabase } from "expo-sqlite";
+
 /*
             DROP TABLE IF EXISTS products;
             DROP TABLE IF EXISTS suppliers;
@@ -49,7 +51,7 @@
             DROP TABLE IF EXISTS products;
             DROP TABLE IF EXISTS suppliers;
 */
-export const initDatabase = async (db) => {
+export const initDatabase = async (db: SQLiteDatabase) => {
     try {
         await db.execAsync(`
             PRAGMA journal_mode = WAL;
